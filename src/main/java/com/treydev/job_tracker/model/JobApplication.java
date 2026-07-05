@@ -1,5 +1,6 @@
 package com.treydev.job_tracker.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -12,6 +13,15 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "job_applications")
 public class JobApplication {
+
+    @PrePersist
+    @PreUpdate
+    public void updateTimestamps() {
+        this.lastUpdated = LocalDate.now();
+        if (this.appliedDate == null) {
+            this.appliedDate = LocalDate.now();
+        }
+    }
 
     //to auto-increment id
     @Id
@@ -34,6 +44,7 @@ public class JobApplication {
     private Status status;
 
     @URL(message = "Must be a valid URL")
+    @JsonProperty("jobPostingUrl")
     private String jobPostingURL;
     private String notes;
     private LocalDate appliedDate;
