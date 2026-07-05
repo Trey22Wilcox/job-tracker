@@ -1,7 +1,11 @@
 package com.treydev.job_tracker.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import org.hibernate.validator.constraints.URL;
+
 import java.time.LocalDate;
 
 @Data
@@ -16,16 +20,20 @@ public class JobApplication {
 
     //company name cannot be false
     @Column(nullable = false)
+    @NotBlank(message = "Company name is required")
     private String company;
 
     //job title cannot be false
     @Column(nullable = false)
+    @NotBlank(message = "Job title is required")
     private String jobTitle;
 
+    @NotNull(message = "Status is required")
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String status;
+    private Status status;
 
+    @URL(message = "Must be a valid URL")
     private String jobPostingURL;
     private String notes;
     private LocalDate appliedDate;
