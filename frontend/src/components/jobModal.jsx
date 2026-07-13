@@ -4,6 +4,8 @@ function JobModal({ job, onClose, onSave, onDelete }) {
   const [company, setCompany] = useState('')
   const [jobTitle, setJobTitle] = useState('')
   const [status, setStatus] = useState('APPLIED')
+  const [saving, setSaving] = useState(false)
+  const [confirmingDelete, setConfirmingDelete] = useState(false)
 
   useEffect(() => {
     if (job) {
@@ -11,16 +13,21 @@ function JobModal({ job, onClose, onSave, onDelete }) {
       setJobTitle(job.jobTitle)
       setStatus(job.status)
     }
+    setConfirmingDelete(false)
   }, [job])
 
-const [saving, setSaving] = useState(false)
+  async function handleSubmit(e) {
+    e.preventDefault()
+    setSaving(true)
+    await onSave({ company, jobTitle, status }, job?.id)
+    setSaving(false)
+  }
 
-async function handleSubmit(e) {
-  e.preventDefault()
-  setSaving(true)
-  await onSave({ company, jobTitle, status }, job?.id)
-  setSaving(false)
-}
+  async function handleConfirmDelete() {
+    setSaving(true)
+    await onDelete(job.id)
+    setSaving(false)
+  }
 
   return (
     <div className="modal-overlay">
@@ -56,13 +63,36 @@ async function handleSubmit(e) {
 
           <div className="modal-actions">
             {job && (
-              <button type="button" onClick={() => onDelete(job.id)}>
-                Delete
-              </button>
+              confirmingDelete ? (
+                <>
+                  <span>Delete this application?</span>
+                  <button type="button" onClick={handleConfirmDelete} disabled={saving}>
+                    Confirm Delete
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setConfirmingDelete(false)}
+                    disabled={saving}
+                  >
+                    Cancel
+                  </button>
+                </>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => setConfirmingDelete(true)}
+                  disabled={saving}
+                >
+                  Delete
+                </button>
+              )
             )}
-            <button type="button" onClick={onClose}>Cancel</button>
+
+            <button type="button" onClick={onClose} disabled={saving}>
+              Cancel
+            </button>
             <button type="submit" disabled={saving}>
-                {saving ? 'Saving...' : 'Save'}
+              {saving ? 'Saving...' : 'Save'}
             </button>
           </div>
         </form>
