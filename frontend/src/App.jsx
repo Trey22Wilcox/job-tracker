@@ -1,9 +1,17 @@
+import {Routes, Route} from 'react-router-dom'
+import NavBar from "./components/NavBar";
+import Dashboard from './pages/Dashboard'
+import Resume from './pages/Resume'
 import './App.css'
 
 function App() {
   return (
     <div>
-      <h1>Job Tracker</h1>
+      <navbar />
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/resume" element={<Resume />} />
+      </Routes>
     </div>
   )
 }
