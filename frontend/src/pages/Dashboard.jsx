@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react'
 import { getAllJobs, createJob, updateJob, deleteJob } from '../api/jobsApi'
 import JobModal from '../components/JobModal'
+import StatsBar from '../components/StatsBar'
 
 function Dashboard() {
   const [jobs, setJobs] = useState([])
   const [loading, setLoading] = useState(true)
   const [modalOpen, setModalOpen] = useState(false)
   const [activeJob, setActiveJob] = useState(null)
+  
 
   useEffect(() => {
     loadJobs()
@@ -45,14 +47,20 @@ function Dashboard() {
   return (
     <div>
       <h1>Applications</h1>
-      <button onClick={() => { setActiveJob(null); setModalOpen(true) }}>
+    <StatsBar jobs={jobs} />
+    <button className="add-application-btn" onClick={() => { setActiveJob(null); setModalOpen(true) }}>
         + Add Application
-      </button>
-
-      <ul>
+    </button>
+      <ul className="job-list">
         {jobs.map((job) => (
           <li key={job.id} onClick={() => { setActiveJob(job); setModalOpen(true) }}>
-            {job.company} — {job.jobTitle} ({job.status})
+            <span className="job-info">
+              {job.company} — {job.jobTitle}
+              <span className={`status-badge ${job.status}`}>
+                {job.status.replace('_', ' ')}
+              </span>
+            </span>
+            <span className="job-updated">Updated {job.lastUpdated}</span>
           </li>
         ))}
       </ul>
