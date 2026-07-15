@@ -48,13 +48,19 @@ function Dashboard() {
     <div>
       <h1>Applications</h1>
     <StatsBar jobs={jobs} />
-    <button onClick={() => { setActiveJob(null); setModalOpen(true) }}>
+    <button className="add-application-btn" onClick={() => { setActiveJob(null); setModalOpen(true) }}>
         + Add Application
     </button>
-      <ul>
+      <ul className="job-list">
         {jobs.map((job) => (
           <li key={job.id} onClick={() => { setActiveJob(job); setModalOpen(true) }}>
-            {job.company} — {job.jobTitle} ({job.status})
+            <span className="job-info">
+              {job.company} — {job.jobTitle}
+              <span className={`status-badge ${job.status}`}>
+                {job.status.replace('_', ' ')}
+              </span>
+            </span>
+            <span className="job-updated">Updated {job.lastUpdated}</span>
           </li>
         ))}
       </ul>
