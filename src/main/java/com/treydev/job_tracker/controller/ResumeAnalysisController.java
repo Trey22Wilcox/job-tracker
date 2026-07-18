@@ -10,7 +10,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,7 +21,6 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/resume")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:5173")
 public class ResumeAnalysisController {
 
     private final ResumeAnalysisService resumeAnalysisService;
