@@ -24,6 +24,12 @@ export default function Resume() {
     }
   }
 
+  function handleClear() {
+    setJobDescription('')
+    setResult(null)
+    setError(null)
+  }
+
   return (
     <div className="resume-page">
       <h1>Resume</h1>
@@ -44,9 +50,19 @@ export default function Resume() {
                 placeholder="Paste a job description to see how well the resume matches..."
               />
             </label>
-            <button type="submit" disabled={loading || !jobDescription.trim()}>
-              {loading ? 'Analyzing...' : 'Analyze Match'}
-            </button>
+            <div className="resume-form-actions">
+              <button type="submit" disabled={loading || !jobDescription.trim()}>
+                {loading ? 'Analyzing...' : 'Analyze Match'}
+              </button>
+              <button
+                type="button"
+                className="btn-danger"
+                onClick={handleClear}
+                disabled={loading || !jobDescription.trim()}
+              >
+                Clear
+              </button>
+            </div>
           </form>
 
           {error && <p className="analysis-error">{error}</p>}
