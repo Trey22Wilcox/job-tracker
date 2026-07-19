@@ -187,13 +187,21 @@ button[type='button']:hover {
   margin-top: 0;
 }
 
-.btn-danger {
+button.btn-danger {
   background: var(--rust);
   color: var(--surface);
+  border-color: var(--rust);
 }
 
-.btn-danger:hover {
+button.btn-danger:hover {
   background: var(--clay-dark);
+  border-color: var(--clay-dark);
+}
+
+button.btn-danger:disabled {
+  background: var(--border);
+  border-color: var(--border);
+  color: var(--text-muted);
 }
 
 .modal form {
@@ -332,8 +340,10 @@ button[type='button']:hover {
   resize: vertical;
 }
 
-.resume-analysis button[type='submit'] {
-  align-self: flex-start;
+.resume-form-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .analysis-error {
