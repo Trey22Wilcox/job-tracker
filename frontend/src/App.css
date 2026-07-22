@@ -421,3 +421,33 @@ button.btn-danger:disabled {
     gap: 16px;
   }
 }
+
+@media (max-width: 600px) {
+  .resume-layout {
+    margin: 0 12px 24px;
+    gap: 16px;
+  }
+
+  .resume-preview {
+    width: 100%;
+  }
+
+  .resume-preview iframe {
+    min-height: 60vh;
+  }
+
+  .resume-analysis form {
+    padding: 16px;
+  }
+
+  .resume-form-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .resume-form-actions button {
+    width: 100%;
+    padding: 12px;
+  }
+}

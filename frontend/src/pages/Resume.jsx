@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { analyzeResume } from '../api/resumeApi'
 
-const RESUME_URL = `${import.meta.env.VITE_API_URL}/resume.pdf`
+const RESUME_URL = `${import.meta.env.VITE_API_URL}/resume.pdf#view=FitH`
 
 export default function Resume() {
   const [jobDescription, setJobDescription] = useState('')
