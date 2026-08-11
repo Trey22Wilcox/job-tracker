@@ -103,6 +103,23 @@ Once everything above is installed, you don't need to repeat the whole process e
 2. `./mvnw spring-boot:run` (backend)
 3. `cd frontend && npm run dev` (frontend)
 
+## Making it your own
+
+This project was originally built around one specific person's resume and background, so two things are worth customizing if you're setting it up for yourself:
+
+### Swap in your own resume
+
+The resume shown on the Resume page, and the one sent to Claude for analysis, is a static PDF file checked into the repo — not something uploaded through the UI. Replace both copies with your own resume, keeping the same filename:
+
+- `src/main/resources/resume.pdf` — read by the backend and sent to Claude for analysis
+- `src/main/resources/static/resume.pdf` — served directly to the browser for the on-page preview (`iframe`) at `/resume.pdf`
+
+Restart the backend (`./mvnw spring-boot:run`) after replacing these — Spring Boot serves them from its packaged resources, so it won't pick up the change while it's already running.
+
+### Edit the analysis prompt
+
+The instructions Claude follows when comparing your resume to a job description live in `buildPrompt()` in [`src/main/java/com/treydev/job_tracker/service/ResumeAnalysisService.java`](src/main/java/com/treydev/job_tracker/service/ResumeAnalysisService.java). As written, it's tuned for an early-career candidate (recent grad, ~1 year of internship/fellowship experience) and instructs Claude to weigh transferable skills over exact keyword matches, with matching scored 0–100. If that framing doesn't fit your background — e.g. you're a senior candidate, or you want stricter keyword matching — edit the prompt text there to describe your own situation and how you want candidates evaluated. It's a plain Java text block, so no special tooling is needed — just edit the string and restart the backend to pick up the change.
+
 ## Troubleshooting
 
 - **"Port already in use"** — something else on your machine is already using port 5434, 8080, or 5173. Either stop that program or change the port in `.env` / `docker-compose.yaml` / `vite.config.js`.
