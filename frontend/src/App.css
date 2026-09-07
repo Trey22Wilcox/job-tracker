@@ -140,6 +140,30 @@ button[type='button']:hover {
 .status-badge.OFFER { background: var(--sage-dark); }
 .status-badge.REJECTED { background: var(--rust); }
 
+.job-section {
+  margin: 0 32px 16px;
+}
+
+.job-section-toggle {
+  width: 100%;
+  text-align: left;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-size: 14px;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.job-section-toggle:hover {
+  background: var(--surface-hover);
+}
+
+.job-section .job-list {
+  margin: 10px 0 0;
+}
+
 .modal-overlay {
   position: fixed;
   inset: 0;
